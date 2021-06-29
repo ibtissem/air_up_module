@@ -11,7 +11,9 @@ class Warehouse(models.Model):
     def get_product_quantity(self, *args, **kwargs):
         _cr = self.env.cr
         query = ('''
-            select sum(ws.quantity) as amount, ws.product_id as id, ap.name as name
+            select sum(ws.quantity) as amount, 
+                    ws.product_id as id, 
+                    ap.name as name
             from warehouse_stock ws
             left join airup_product ap  on ap.id = ws.product_id
             GROUP BY ws.product_id, ap.name;

@@ -36,3 +36,31 @@ class WsAuth(http.Controller):
         return http.Response(json.dumps({'response': 200 if shelf else 503,
                                          'success': True,
                                          'record_id': warehouse_stock.id}))
+
+    @http.route('/api/warehouse', type='http', auth='public', methods=['PUT'], csrf=False)
+    def put_product_shelf(self, **put_data):
+        if False in [put_data.get('row', False), put_data.get('bay', False),
+                     put_data.get('id', False)]:
+            return http.Response(json.dumps({'response': 500,
+                                             'success': False,
+                                             'error': '[ERR_MISSING_DATA] Missing Data'}))
+        warehouse_model = request.env['warehouse.stock']
+        shelf = request.env['warehouse.shelf'].sudo().search([('row', '=', int(put_data['row'])),
+                                                ('bay', '=', int(put_data['bay']))], limit=1)
+        print('shelf', shelf)
+        if not shelf:
+            return http.Response(json.dumps({'response': '404 resource not found',
+                                             'success': False}),
+                                 status=404)
+        try:
+            warehouse = warehouse_model.sudo().search([('shelf_id', '=', shelf.id),
+                                    ('product_id', '=', int(put_data['id']))])
+            print('waaaarehouse', warehouse)
+            quant = warehouse.quantity - 1 if warehouse.quantity > 0 else 0
+            print('quant', quant)
+            warehouse.sudo().write({'quantity': quant})
+            return http.Response(json.dumps({'response': 200,
+                                             'success': True,
+                                             'record_updated': warehouse.quantity}), status=200)
+        except Exception:
+            return http.Response(json.dumps({'response': '400 bad request', 'success': False}), status=400)
