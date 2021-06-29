@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="airup_product_1" model="airup.product">
+        <field name="name">Starter-Set charcoal</field>
+        <field name="description">Starter-Set in charcoal with two pods</field>
+    </record>
+    <record id="airup_product_2" model="airup.product">
+        <field name="name">Starter-Set white</field>
+        <field name="description">Starter-Set in white with two pods</field>
+    </record>
+    <record id="airup_product_3" model="airup.product">
+        <field name="name">Starter-Set black</field>
+        <field name="description">Starter-Set in black with two pods</field>
+    </record>
+    <record id="airup_product_4" model="airup.product">
+        <field name="name">Starter-Set red</field>
+        <field name="description">Starter-Set in red with two pods</field>
+    </record>
+    <record id="airup_product_5" model="airup.product">
+        <field name="name">Starter-Set blue</field>
+        <field name="description">Starter-Set in blue with two pods</field>
+    </record>
+
+</odoo>

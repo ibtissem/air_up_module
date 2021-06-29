@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="warehouse_stock_1" model="warehouse.stock">
+        <field name="product_id" ref="airup_product_1"/>
+        <field name="shelf_id" ref="warehouse_shelf_2_3"/>
+        <field name="quantity">22</field>
+    </record>
+    <record id="warehouse_stock_2" model="warehouse.stock">
+        <field name="product_id" ref="airup_product_2"/>
+        <field name="shelf_id" ref="warehouse_shelf_2_3"/>
+        <field name="quantity">11</field>
+    </record>
+    <record id="warehouse_stock_3" model="warehouse.stock">
+        <field name="product_id" ref="airup_product_2"/>
+        <field name="shelf_id" ref="warehouse_shelf_2_4"/>
+        <field name="quantity">5</field>
+    </record>
+
+    <record id="warehouse_stock_4" model="warehouse.stock">
+        <field name="product_id" ref="airup_product_1"/>
+        <field name="shelf_id" ref="warehouse_shelf_2"/>
+        <field name="quantity">78</field>
+    </record>
+    <record id="warehouse_stock_5" model="warehouse.stock">
+        <field name="product_id" ref="airup_product_2"/>
+        <field name="shelf_id" ref="warehouse_shelf_3"/>
+        <field name="quantity">34</field>
+    </record>
+
+</odoo>
