@@ -50,7 +50,7 @@ class WsAuth(http.Controller):
         )
 
     @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['GET'])
-    def get_shelfs_by_row(self, row, bay):
+    def get_shelfs_by_row_bay(self, row, bay):
         """
         Unsubscribe the email from receiving emails
         :param token:
@@ -92,6 +92,20 @@ class WsAuth(http.Controller):
         return http.Response(json.dumps({'response': 200 if shelf else 503,
                                          'success': True,
                                          'record_id': shelf.id}))
+
+    @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['PATCH'], csrf=False)
+    def patch_shelf_row_bay(self, row, bay, **patch_data):
+        shelf_model = request.env['warehouse.shelf']
+        shelfs = shelf_model.sudo().search([('row', '=', row), ('bay', '=', bay)])
+        if not shelfs:
+            return http.Response(json.dumps({'response': '404 not found', 'success': False}), status=404)
+        try:
+            shelfs.sudo().write(patch_data)
+            return http.Response(json.dumps({'response': 200,
+                                             'success': True,
+                                             'record_updated': shelfs.ids}), status=200)
+        except Exception:
+            return http.Response(json.dumps({'response': '400 bad request', 'success': False}), status=400)
 
     @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['DELETE'], csrf=False)
     def delete_shelf(self, row, bay):

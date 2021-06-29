@@ -15,7 +15,6 @@
 
     'depends': [
         'website',
-        'sale_stock'
     ],
 
     'data': [
