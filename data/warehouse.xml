@@ -16,7 +16,6 @@
         <field name="shelf_id" ref="warehouse_shelf_2_4"/>
         <field name="quantity">5</field>
     </record>
-
     <record id="warehouse_stock_4" model="warehouse.stock">
         <field name="product_id" ref="airup_product_1"/>
         <field name="shelf_id" ref="warehouse_shelf_2"/>

@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class WarehouseShelf(models.Model):
     _name = 'warehouse.shelf'
 
@@ -15,7 +16,6 @@ class WarehouseShelf(models.Model):
         query = ('''
             select row , bay from warehouse_shelf  
         ''')
-
         _cr.execute(query)
         return _cr.dictfetchall()
 
@@ -23,19 +23,18 @@ class WarehouseShelf(models.Model):
     def get_bay_by_row(self, row):
         _cr = self.env.cr
         query = ('''
-            select bay from warehouse_shelf where row = %s
+            select bay from warehouse_shelf
+            where row = %s
         ''')
-
         _cr.execute(query, (row,))
         return _cr.dictfetchall()
 
     @api.model
     def get_shelf_by_bay_row(self, row, bay):
         _cr = self.env.cr
-
         query = ('''
-                select height, width, depth from warehouse_shelf where row = %s and bay = %s
+                select height, width, depth from warehouse_shelf 
+                where row = %s and bay = %s
             ''')
-
         _cr.execute(query, (row, bay,))
         return _cr.dictfetchall()

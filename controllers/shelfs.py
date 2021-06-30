@@ -8,19 +8,9 @@ class WsAuth(http.Controller):
     @http.route('/api/shelfs', type='http', auth='public', methods=['GET'])
     def get_shelfs(self, *args, **kwargs):
         """
-        Returns a challenge hash to be processed by the client
-
-        Example response:
-
-        .. code-block:: json
-
-            {
-                "challenge": "3X7hVhgvT47BtW+0YmYQyKCRYYiboHkmKx0sJioVWQU=",
-                "id": 64,
-                "success": true
-            }
-
-        :return:
+        Display all shelfs
+        :param:
+        :return: JSON response
         """
         shelfs_model = http.request.env['warehouse.shelf']
         res = shelfs_model.get_shelfs(*args, **kwargs)
@@ -31,11 +21,10 @@ class WsAuth(http.Controller):
     @http.route('/api/shelfs/<int:row>', type='http', auth='public', methods=['GET'])
     def get_shelfs_by_row(self, row):
         """
-        Unsubscribe the email from receiving emails
-        :param token:
-        :return:
+        Return shelf by id
+        :param row:
+        :return: JSON response
         """
-
         shelfs_model = http.request.env['warehouse.shelf']
         shelfs = shelfs_model.get_bay_by_row(row)
         if not shelfs:
@@ -52,11 +41,10 @@ class WsAuth(http.Controller):
     @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['GET'])
     def get_shelfs_by_row_bay(self, row, bay):
         """
-        Unsubscribe the email from receiving emails
-        :param token:
-        :return:
+        Return article by row and bay combo
+        :param row, bay:
+        :return: JSON response
         """
-
         shelfs_model = http.request.env['warehouse.shelf']
         shelfs = shelfs_model.get_shelf_by_bay_row(row, bay)
         if not shelfs:
@@ -72,7 +60,11 @@ class WsAuth(http.Controller):
 
     @http.route('/api/shelfs', type='http', auth='public', methods=['POST'], csrf=False)
     def create_shelf(self, **post):
-        print('pppppppppppppost %s', post)
+        """
+        Create Shelf
+        :param post: HTTP POST data
+        :return: JSON response
+        """
         if False in [post.get('row', False), post.get('bay', False),
                      post.get('height', False), post.get('width', False),
                      post.get('depth', False)]:
@@ -88,30 +80,47 @@ class WsAuth(http.Controller):
             'height': post.get('height'),
             'width': post.get('width'),
         }
-        shelf = shelf_model.sudo().create(values)
-        return http.Response(json.dumps({'response': 200 if shelf else 503,
-                                         'success': True,
-                                         'record_id': shelf.id}))
+        try:
+            shelf = shelf_model.sudo().create(values)
+            return http.Response(json.dumps({'response': 200 if shelf else 503,
+                                             'success': True,
+                                             'record_id': shelf.id}))
+        except Exception:
+            return http.Response(json.dumps({'response': 'bad data introduced',
+                                             'success': False}), status=400)
 
     @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['PATCH'], csrf=False)
     def patch_shelf_row_bay(self, row, bay, **patch_data):
+        """
+        Update shelf b row and bay
+        :param row, bay: HTTP PATCH data
+        :return: JSON response
+        """
         shelf_model = request.env['warehouse.shelf']
-        shelfs = shelf_model.sudo().search([('row', '=', row), ('bay', '=', bay)])
+        shelfs = shelf_model.sudo().search([('row', '=', row),
+                                            ('bay', '=', bay)])
         if not shelfs:
-            return http.Response(json.dumps({'response': '404 not found', 'success': False}), status=404)
+            return http.Response(json.dumps({'response': '[ERR_RESOURCE_NOT_FOUND] 404 not found',
+                                             'success': False}), status=404)
         try:
             shelfs.sudo().write(patch_data)
             return http.Response(json.dumps({'response': 200,
                                              'success': True,
                                              'record_updated': shelfs.ids}), status=200)
         except Exception:
-            return http.Response(json.dumps({'response': '400 bad request', 'success': False}), status=400)
+            return http.Response(json.dumps({'response': '400 bad request',
+                                             'success': False}), status=400)
 
     @http.route('/api/shelfs/<int:row>/<int:bay>', type='http', auth='public', methods=['DELETE'], csrf=False)
     def delete_shelf(self, row, bay):
-
+        """
+        Delete shelf by row and bay
+        :param row, bay:
+        :return: JSON response
+        """
         shelf_model = request.env['warehouse.shelf']
-        shelfs = shelf_model.sudo().search([('row', '=', row), ('bay', '=', bay)])
+        shelfs = shelf_model.sudo().search([('row', '=', row),
+                                            ('bay', '=', bay)])
         to_be_deleted_ids = shelfs.ids
         if not shelfs.exists():
             return JSONResponse(

@@ -1,14 +1,14 @@
 {
-    'name': "Ar Up Rest Api",
+    'name': "Ar Up Rest Api Warehouse",
 
     'summary': """
-    Air up module
+    Air up warehouse REST API
     """,
 
     'author': "Air Up",
-    'website': "https://www.airup.de/",
+    'website': "https://www.air-up.com/",
 
-    'category': 'Utility',
+    'category': 'Stock',
     'version': '11.0.0.0.1',
 
     'application': True,

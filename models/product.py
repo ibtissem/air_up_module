@@ -11,8 +11,7 @@ class Product(models.Model):
     def get_product(self, *args, **kwargs):
         _cr = self.env.cr
         query = ('''
-            select pp2.id , pt.name from airup_product
+            select name, id from airup_product
         ''')
-
         _cr.execute(query)
         return _cr.dictfetchall()

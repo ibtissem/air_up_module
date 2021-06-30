@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class Warehouse(models.Model):
     _name = 'warehouse.stock'
 
@@ -15,7 +16,7 @@ class Warehouse(models.Model):
                     ws.product_id as id, 
                     ap.name as name
             from warehouse_stock ws
-            left join airup_product ap  on ap.id = ws.product_id
+            left join airup_product ap on ap.id = ws.product_id
             GROUP BY ws.product_id, ap.name;
         ''')
 
