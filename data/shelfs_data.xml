@@ -2,7 +2,6 @@
 <odoo noupdate="1">
 
     <record id="warehouse_shelf_1" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">1</field>
         <field name="bay">1</field>
         <field name="height">2.4</field>
@@ -10,7 +9,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_2" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">1</field>
         <field name="bay">2</field>
         <field name="height">2.4</field>
@@ -18,7 +16,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_3" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">1</field>
         <field name="bay">3</field>
         <field name="height">2.4</field>
@@ -26,7 +23,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_2_1" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">2</field>
         <field name="bay">1</field>
         <field name="height">2.4</field>
@@ -34,7 +30,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_2_2" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">2</field>
         <field name="bay">2</field>
         <field name="height">2.4</field>
@@ -42,7 +37,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_2_3" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">2</field>
         <field name="bay">3</field>
         <field name="height">2.4</field>
@@ -50,7 +44,6 @@
         <field name="depth">0.4</field>
     </record>
     <record id="warehouse_shelf_2_4" model="warehouse.shelf">
-        <field name="warehouse_id" ref="stock.stock_location_14"/>
         <field name="row">2</field>
         <field name="bay">4</field>
         <field name="height">2.4</field>
